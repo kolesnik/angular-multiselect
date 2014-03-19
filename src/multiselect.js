@@ -17,7 +17,9 @@ angular.module('ui.multiselect', [])
                             "for _item_ in _collection_' but got '" + input + "'.");
                 }
 
+                var splitted = match[1].split('.');
                 return {
+                    valueName: splitted.length > 0 ? splitted[splitted.length - 1] : false,
                     itemName: match[3],
                     source: $parse(match[4]),
                     viewMapper: $parse(match[2] || match[1]),
@@ -182,7 +184,7 @@ angular.module('ui.multiselect', [])
                             value = [];
                             angular.forEach(scope.items, function (item) {
                                 if (item.checked) {
-                                    value.push(item.model);
+                                    value.push(item.model[parsedResult.valueName]);
                                 }
                             });
                         } else {

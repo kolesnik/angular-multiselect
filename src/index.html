@@ -9,21 +9,21 @@
     <script src="multiselect.js"></script>
 </head>
 <body ng-controller="appCtrl">
-    <h1>Example</h1>
-    <multiselect class="input-lg" multiple="true"
-        ng-model="selectedCar"
-        options="c.name for c in cars"
-        change="selected()"></multiselect>
-        <div class="well well-sm">
-            {{selectedCar}}
-        </div>
-    Single select:
-        <multiselect class="input-lg"
-        ng-model="selectedFruit"
-        options="c.name for c in fruits"
-        change="selected()" ></multiselect>
-        <div class="well well-sm">
-            {{selectedFruit}}
-        </div>
+<h1>Example</h1>
+<multiselect class="input-lg" multiple="true"
+             ng-model="selectedCar"
+             options="c.id as c.name for c in cars"
+             change="selected()"></multiselect>
+<div class="well well-sm">
+    {{selectedCar}}
+</div>
+Single select:
+<multiselect class="input-lg"
+             ng-model="selectedFruit"
+             options="c.name for c in fruits"
+             change="selected()"></multiselect>
+<div class="well well-sm">
+    {{selectedFruit}}
+</div>
 </body>
 </html>
