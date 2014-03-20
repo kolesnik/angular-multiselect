@@ -208,9 +208,8 @@ angular.module('ui.multiselect', [])
                             });
                         } else {
                             angular.forEach(scope.items, function (item) {
-                                item.checked = false;
                                 angular.forEach(newVal, function (i) {
-                                    if (angular.equals(item.model, i)) {
+                                    if (angular.equals(item.model[parsedResult.valueName], i)) {
                                         item.checked = true;
                                     }
                                 });
