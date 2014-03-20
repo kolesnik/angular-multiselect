@@ -243,6 +243,11 @@ angular.module('ui.multiselect', [])
                             selectMultiple(item);
                         }
                     };
+
+                    scope.stopEvent = function (event) {
+                        event.stopPropagation();
+                        event.preventDefault();
+                    };
                 }
             };
         }])
