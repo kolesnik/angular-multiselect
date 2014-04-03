@@ -29,9 +29,9 @@ angular.module('ui.multiselect', [])
         };
     }])
 
-    .directive('multiselect', ['$parse', '$document', '$compile', 'optionParser',
+    .directive('multiselect', ['$parse', '$document', '$compile', '$filter', 'optionParser',
 
-        function ($parse, $document, $compile, optionParser) {
+        function ($parse, $document, $compile, $filter, optionParser) {
             return {
                 restrict: 'E',
                 require: 'ngModel',
@@ -46,6 +46,7 @@ angular.module('ui.multiselect', [])
 
                     scope.items = [];
                     scope.header = 'Select';
+                    scope.ordered = false;
                     scope.multiple = isMultiple;
                     scope.disabled = false;
 
@@ -174,6 +175,7 @@ angular.module('ui.multiselect', [])
 
                     function selectMultiple(item) {
                         item.checked = !item.checked;
+                        scope.ordered = false;
                         setModelValue(true);
                     }
 
@@ -243,6 +245,13 @@ angular.module('ui.multiselect', [])
                         }
                     };
 
+                    scope.orderBySelected = function () {
+                        if (!scope.ordered) {
+                            scope.items = $filter('orderBy')(scope.items, 'checked', true);
+                        }
+                        scope.ordered = true;
+                    };
+
                     scope.stopEvent = function (event) {
                         event.stopPropagation();
                         event.preventDefault();
@@ -266,6 +275,7 @@ angular.module('ui.multiselect', [])
                         element.removeClass('open');
                         $document.unbind('click', clickHandler);
                     } else {
+                        scope.orderBySelected();
                         element.addClass('open');
                         $document.bind('click', clickHandler);
                         scope.focus();
